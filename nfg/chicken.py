@@ -39,4 +39,7 @@ def chicken(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
     payoff_matrices[:, [0, 1], [0, 1], [1, 0]] = c.reshape(batch_size, -1)
     payoff_matrices[:, [0, 1], [1, 1], [1, 1]] = d.reshape(batch_size, -1)
 
-    return payoff_matrices
+    if batch_size == 1:
+        return payoff_matrices[0]
+    else:
+        return payoff_matrices
