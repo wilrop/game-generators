@@ -41,14 +41,9 @@ def battle_of_the_sexes(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
 
     # Generates of the first form first.
     payoff_matrices = np.zeros((batch_size, 2, 2, 2))
-    payoff_matrices[:, 0, 0, 0] = a
-    payoff_matrices[:, 0, 1, 1] = b
-    payoff_matrices[:, 1, 0, 0] = b
-    payoff_matrices[:, 1, 1, 1] = a
-    payoff_matrices[:, 0, 0, 1] = c
-    payoff_matrices[:, 0, 1, 0] = c
-    payoff_matrices[:, 1, 0, 1] = c
-    payoff_matrices[:, 1, 1, 0] = c
+    payoff_matrices[:, [0, 1], [0, 1], [0, 1]] = a.reshape(batch_size, -1)
+    payoff_matrices[:, [0, 1], [1, 0], [1, 0]] = b.reshape(batch_size, -1)
+    payoff_matrices[:, [0, 0, 1, 1], [0, 1, 0, 1], [1, 0, 1, 0]] = c.reshape(batch_size, -1)
 
     # Randomly swap the first and second rows.
     swap = rng.choice([True, False], size=batch_size)
