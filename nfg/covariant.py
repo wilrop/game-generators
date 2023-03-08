@@ -27,7 +27,7 @@ def covariant(num_players, num_actions, batch_size=1, mean=0, std=1, cov=0, rng=
         cov = np.full((num_players, num_players), cov)
         np.fill_diagonal(cov, std)
 
-    num_payoffs = num_actions ** num_players
+    num_payoffs = (num_actions ** num_players) * batch_size
     player_payoffs = rng.multivariate_normal(mean, cov, size=num_payoffs)
     payoff_matrices = np.expand_dims(player_payoffs, -1).swapaxes(0, 1).reshape(
         (batch_size, num_players, *([num_actions] * num_players)))
