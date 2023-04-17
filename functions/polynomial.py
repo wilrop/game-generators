@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def polynomial(degree, min_coef, max_coef, rng=None, seed=None):
     """Generate a random polynomial of degree `degree` with coefficients drawn from a uniform distribution.
 
@@ -13,9 +16,12 @@ def polynomial(degree, min_coef, max_coef, rng=None, seed=None):
         seed (int, optional): The random seed. Defaults to None.
 
     Returns:
-        np.ndarray: A random polynomial.
+        Callable: A random polynomial.
     """
     rng = rng if rng is not None else np.random.default_rng(seed)
     coefficients = rng.uniform(low=min_coef, high=max_coef, size=degree + 1)
-    poly_f = lambda x: np.dot(np.power(x, np.arange(degree + 1)), coefficients)
+
+    def poly_f(x):
+        return np.dot(np.power(x, np.arange(degree + 1)), coefficients)
+
     return poly_f
