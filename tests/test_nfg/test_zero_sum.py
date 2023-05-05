@@ -3,7 +3,7 @@ import numpy as np
 from gage.nfg.zero_sum import zero_sum
 
 
-class TestBestResponse(unittest.TestCase):
+class TestZeroSum(unittest.TestCase):
     n_players = 3
     num_actions = 10
     batch_size = 100
