@@ -3,7 +3,7 @@ import numpy as np
 from gage.nfg.generate_nfg import generate_nfg
 
 
-def generate_monfg_from_nfg(game, num_players, num_actions, num_objectives, batch_size=1, **kwargs):
+def from_nfg(game, num_players, num_actions, num_objectives, batch_size=1, **kwargs):
     """Generate a multi-objective normal form game.
 
     The function generates multi-objective versions of the NFGs in the main library. The multi-objective versions are
