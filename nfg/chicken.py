@@ -1,4 +1,5 @@
 import numpy as np
+from utils.payoffs import strictly_decreasing
 
 
 def chicken(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
@@ -23,15 +24,7 @@ def chicken(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
     Returns:
         ndarray: A game of chicken.
     """
-    rng = rng if rng is not None else np.random.default_rng(seed)
-    min_diff = 1e-4
-
-    # Sequentially generate the a, b, c and d payoffs. The minimum payoffs for the largest payoffs are raised to ensure
-    # a strictly decreasing sequence.
-    a = rng.uniform(low=min_r + 3 * min_diff, high=max_r, size=batch_size)
-    b = rng.uniform(low=min_r + 2 * min_diff, high=a, size=batch_size)
-    c = rng.uniform(low=min_r + min_diff, high=b, size=batch_size)
-    d = rng.uniform(low=min_r, high=c, size=batch_size)
+    a, b, c, d = strictly_decreasing(4, batch_size=batch_size, min_r=min_r, max_r=max_r, rng=rng, seed=seed)
 
     payoff_matrices = np.zeros((batch_size, 2, 2, 2))
     payoff_matrices[:, [0, 1], [1, 0], [0, 1]] = a.reshape(batch_size, -1)

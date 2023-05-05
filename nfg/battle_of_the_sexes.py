@@ -1,4 +1,5 @@
 import numpy as np
+from utils.payoffs import strictly_decreasing
 
 
 def battle_of_the_sexes(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
@@ -26,14 +27,7 @@ def battle_of_the_sexes(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
     Returns:
         np.ndarray: A battle of the sexes game.
     """
-    rng = rng if rng is not None else np.random.default_rng(seed)
-    min_diff = 1e-4
-
-    # Sequentially generate the A, B and C payoffs. The minimum payoffs for the largest payoffs are raised to ensure
-    # a strictly decreasing sequence.
-    a = rng.uniform(low=min_r + 2 * min_diff, high=max_r, size=batch_size)
-    b = rng.uniform(low=min_r + min_diff, high=a, size=batch_size)
-    c = rng.uniform(low=min_r, high=b, size=batch_size)
+    a, b, c = strictly_decreasing(3, batch_size=batch_size, min_r=min_r, max_r=max_r, rng=rng, seed=seed)
 
     # Randomly swap entries from a and b to ensure that sometimes (C < A < B) and sometimes (C < B < A).
     swap = rng.choice([True, False], size=batch_size)
