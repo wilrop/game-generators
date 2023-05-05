@@ -1,7 +1,10 @@
 # GAGE
 
-Game Generators is a package for generating games that can be used in research and production. It is loosely based
-on [GAMUT](http://gamut.stanford.edu/).
+Game Generators is a package for efficiently generating games for research and experimentation. It is loosely based
+on [GAMUT](http://gamut.stanford.edu/). Its main features are:
+1. Efficiently generate batches that can be used for deep learning purposes.
+2. Wide range of available game structures.
+3. In-depth documentation that provide references to the literature.
 
 ## Installation
 
