@@ -1,5 +1,5 @@
 import numpy as np
-from utils.payoffs import strictly_decreasing
+from gage.utils.payoffs import strictly_decreasing
 
 
 def grab_the_dollar(timesteps, batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
