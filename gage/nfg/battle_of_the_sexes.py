@@ -1,5 +1,5 @@
 import numpy as np
-from utils.payoffs import strictly_decreasing
+from gage.utils.payoffs import strictly_decreasing
 
 
 def battle_of_the_sexes(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
@@ -27,7 +27,8 @@ def battle_of_the_sexes(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
     Returns:
         np.ndarray: A battle of the sexes game.
     """
-    a, b, c = strictly_decreasing(3, batch_size=batch_size, min_r=min_r, max_r=max_r, rng=rng, seed=seed)
+    rng = rng if rng is not None else np.random.default_rng(seed)
+    a, b, c = strictly_decreasing(3, batch_size=batch_size, min_r=min_r, max_r=max_r, rng=rng)
 
     # Randomly swap entries from a and b to ensure that sometimes (C < A < B) and sometimes (C < B < A).
     swap = rng.choice([True, False], size=batch_size)
