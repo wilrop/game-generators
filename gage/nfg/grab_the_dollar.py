@@ -19,7 +19,7 @@ def grab_the_dollar(timesteps, batch_size=1, min_r=0, max_r=5, rng=None, seed=No
     Returns:
         np.ndarray: A game of grab the dollar.
     """
-    a, b, c = strictly_decreasing(3, batch_size=batch_size, min_r=min_r, max_r=max_r, rng=rng, seed=seed)
+    a, b, c = strictly_decreasing(3, batch_size=(batch_size, 1), min_r=min_r, max_r=max_r, rng=rng, seed=seed)
 
     payoff_matrices = np.zeros((batch_size, 2, timesteps, timesteps))
 
