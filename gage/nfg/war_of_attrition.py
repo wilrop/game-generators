@@ -1,5 +1,4 @@
 import numpy as np
-from gage.utils.payoffs import strictly_decreasing
 
 
 def war_of_attrition(timesteps, batch_size=1, min_r=20, max_r=20, min_dec=1, max_dec=3, rng=None, seed=None):
