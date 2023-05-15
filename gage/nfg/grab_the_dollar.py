@@ -34,4 +34,7 @@ def grab_the_dollar(timesteps, batch_size=1, min_r=0, max_r=5, rng=None, seed=No
     payoff_matrices[:, 0, d1, d2] = c
     payoff_matrices[:, 1, d1, d2] = c
 
-    return payoff_matrices
+    if batch_size == 1:
+        return payoff_matrices[0]
+    else:
+        return payoff_matrices

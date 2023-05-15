@@ -38,4 +38,8 @@ def war_of_attrition(timesteps, batch_size=1, min_r=20, max_r=20, min_dec=1, max
     valuations[:, 1, l1, l2] = 0
     valuations[:, :, d1, d2] /= 2
     valuations -= decrements
-    return valuations
+
+    if batch_size == 1:
+        return valuations[0]
+    else:
+        return valuations
