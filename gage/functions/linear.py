@@ -1,19 +1,17 @@
 from polynomial import polynomial
 
 
-def linear(min_coef, max_coef, rng=None, seed=None):
+def linear(dim, min_coef=0., max_coef=5., seed=None, rng=None):
     """Generate a random linear function with coefficients drawn from a uniform distribution.
 
-    Note:
-        Generates a random polynomial of degree 1.
-
     Args:
-        min_coef (float): The minimum coefficient.
-        max_coef (float): The maximum coefficient.
-        rng (np.random.Generator, optional): The random number generator. Defaults to None.
+        dim (int): The dimension of the utility function.
+        min_coef (float, optional): The minimum coefficient. Defaults to 0.
+        max_coef (float, optional): The maximum coefficient. Defaults to 5.
         seed (int, optional): The random seed. Defaults to None.
+        rng (np.random.Generator, optional): The random number generator. Defaults to None.
 
     Returns:
-        callable: A random linear function.
+        Callable: A random polynomial.
     """
-    return polynomial(1, min_coef, max_coef, rng, seed)
+    return polynomial(dim, degree=1, min_coef=min_coef, max_coef=max_coef, seed=seed, rng=rng)

@@ -1,27 +1,29 @@
 import numpy as np
+from itertools import product
 
 
-def polynomial(degree, min_coef, max_coef, rng=None, seed=None):
+def polynomial(dim, degree, min_coef=0., max_coef=5., seed=None, rng=None):
     """Generate a random polynomial of degree `degree` with coefficients drawn from a uniform distribution.
 
-    Note:
-        The coefficients are applied in reverse order due to the usage of the np.arange() function. This doesn't make a
-        difference numerically but should be taken note of when applying the polynomial by hand.
-
     Args:
+        dim (int): The dimension of the utility function.
         degree (int): The degree of the polynomial.
-        min_coef (float): The minimum coefficient.
-        max_coef (float): The maximum coefficient.
-        rng (np.random.Generator, optional): The random number generator. Defaults to None.
+        min_coef (float, optional): The minimum coefficient. Defaults to 0.
+        max_coef (float, optional): The maximum coefficient. Defaults to 5.
         seed (int, optional): The random seed. Defaults to None.
+        rng (np.random.Generator, optional): The random number generator. Defaults to None.
 
     Returns:
         Callable: A random polynomial.
     """
     rng = rng if rng is not None else np.random.default_rng(seed)
-    coefficients = rng.uniform(low=min_coef, high=max_coef, size=degree + 1)
+    # Make all combinations of dim integers that sum to a value less than or equal to degree
+    # e.g. dim=2, degree=2 -> [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [2, 0]]
+    exponents = np.array(list(product(*[range(degree + 1)] * dim)))
+    exponents = exponents[exponents.sum(axis=1) <= degree]
+    coefficients = rng.uniform(low=min_coef, high=max_coef, size=len(exponents))
 
     def poly_f(x):
-        return np.dot(np.power(x, np.arange(degree + 1)), coefficients)
+        return np.dot(x ** exponents, coefficients)
 
     return poly_f

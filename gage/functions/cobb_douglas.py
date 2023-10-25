@@ -13,9 +13,9 @@ def cobb_douglas(dim, min_coef=0.1, max_coef=1.0, normalize=True, seed=None, rng
 
     Args:
         dim (int): The dimension of the utility function.
-        min_coef (float): The minimum coefficient.
-        max_coef (float): The maximum coefficient.
-        normalize (bool): Whether to normalize the coefficients.
+        min_coef (float, optional): The minimum coefficient. Defaults to 0.1.
+        max_coef (float, optional): The maximum coefficient. Defaults to 1.0.
+        normalize (bool, optional): Whether to normalize the coefficients. Defaults to True.
         seed (int, optional): The random seed. Defaults to None.
         rng (np.random.Generator, optional): The random number generator. Defaults to None.
 

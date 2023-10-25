@@ -1,32 +1,30 @@
 import numpy as np
 
 
-def leontief(dim, min_coef=0.1, max_coef=1.0, normalize=True, seed=None, rng=None):
-    """Generate a random Leontief utility function.
+def ces(dim, rho=0, min_coef=0.1, max_coef=1.0, normalize=True, seed=None, rng=None):
+    """Generate a random CES utility function.
 
     Note:
-        The Leontief utility function is defined as: :math:`u(x) = \min_{i=1} \{ \frac{x_i}{\alpha_i}, \cdots, \frac{x_n}{\alpha_n} \}`.
+        The CES utility function is defined as: :math:`u(x) = \left( \sum_{i=1}^n \alpha_i x_i^{\rho} \right)^{\frac{1}{\rho}}`.
+        The Cobb-Douglas function is the limiting case of the CES function as :math:`\rho = 0`.
 
     Note:
         This function is concave.
 
     Args:
         dim (int): The dimension of the utility function.
+        rho (float, optional): The elasticity of substitution. Defaults to 1.
         min_coef (float, optional): The minimum coefficient. Defaults to 0.1.
         max_coef (float, optional): The maximum coefficient. Defaults to 1.0.
         normalize (bool, optional): Whether to normalize the coefficients. Defaults to True.
         seed (int, optional): The random seed. Defaults to None.
-        rng (np.random.Generator, optional): The random number generator. Defaults to None.
-
-    Returns:
-        Callable: A random Leontief utility function.
     """
     rng = rng if rng is not None else np.random.default_rng(seed)
     weights = rng.uniform(low=min_coef, high=max_coef, size=dim)
     if normalize:
         weights /= np.sum(weights)
 
-    def leontief_f(x):
-        return np.min(x / weights)
+    def ces_f(x):
+        return np.power(np.sum(np.power(weights * x, rho)), 1 / rho)
 
-    return leontief_f
+    return ces_f
