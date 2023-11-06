@@ -2,9 +2,20 @@
 
 Game Generators is a package for efficiently generating games for research and experimentation. It is loosely based
 on [GAMUT](http://gamut.stanford.edu/). Its main features are:
-1. Efficiently generate batches that can be used for deep learning purposes.
+
+1. Efficiently generate batches of games drawn from a specific distribution that can be used for deep learning purposes.
 2. Wide range of available game structures.
-3. In-depth documentation that provide references to the literature.
+3. In-depth documentation that provides references to the literature.
+
+## Format
+
+Every game is returned with separate payoff tensors per player. For example, when generating a batch of 1O games with 2
+players and 2 actions per player, we return a (10, 2, 2, 2) tensor where the first dimension contains the batch, the
+second dimension contains a payoff tensor for an individual player, and the remainder is the joint action actions.
+
+It is common in game theoretic research to present joint payoff tensors. We provide a utility function to convert the
+separate payoff tensors to a joint payoff tensor. This function is called `to_joint_payoff` and is available in
+the `utils` module.
 
 ## Installation
 
