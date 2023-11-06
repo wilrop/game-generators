@@ -1,8 +1,8 @@
-from battle_of_the_sexes import battle_of_the_sexes
-from congestion import congestion
-from covariant import covariant
-from majority_voting import majority_voting
-from random_uniform import random_uniform
+from gage.nfg.bach_stravinsky import bach_stravinsky
+from gage.nfg.congestion import congestion
+from gage.nfg.covariant import covariant
+from gage.nfg.majority_voting import majority_voting
+from gage.nfg.random_uniform import random_uniform
 
 
 def generate_nfg(game, num_players, num_actions, batch_size=1, **kwargs):
@@ -25,8 +25,8 @@ def generate_nfg(game, num_players, num_actions, batch_size=1, **kwargs):
         batch = covariant(num_players, num_actions, batch_size=batch_size, **kwargs)
     elif game == 'congestion':
         batch = congestion(num_players, num_actions, batch_size=batch_size, **kwargs)
-    elif game == 'battle_of_the_sexes':
-        batch = battle_of_the_sexes(batch_size=batch_size, **kwargs)
+    elif game == 'bach_stravinsky':
+        batch = bach_stravinsky(batch_size=batch_size, **kwargs)
     else:
         raise ValueError(f'Unknown game {game}')
 

@@ -2,8 +2,8 @@ import numpy as np
 from gage.utils.payoffs import strictly_decreasing
 
 
-def battle_of_the_sexes(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
-    """Creates a 2x2 Battle of the Sexes Game.
+def bach_stravinsky(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
+    """Creates a 2x2 Bach or Stravinsky game.
 
     This generates a table:
 
@@ -16,6 +16,9 @@ def battle_of_the_sexes(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
     A, B C, C
 
     such that either (C < A < B) or (C < B < A).
+
+    Note:
+        This game is also known as battle of the sexes.
 
     Args:
         batch_size (int, optional): The batch size. Defaults to 1.
