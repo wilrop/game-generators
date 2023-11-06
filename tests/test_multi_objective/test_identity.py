@@ -3,13 +3,13 @@ import numpy as np
 from gage.nfg.bach_stravinsky import bach_stravinsky
 
 
-class TestBachStravinsky(unittest.TestCase):
+class TestIdentity(unittest.TestCase):
     batch_size = 100
     min_r = 10
     max_r = 20
     seed = 0
 
-    def test_battle_of_the_sexes(self):
+    def test_bach_stravinsky(self):
         payoff_matrices = bach_stravinsky(batch_size=self.batch_size,
                                           min_r=self.min_r,
                                           max_r=self.max_r,
