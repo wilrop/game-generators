@@ -1,5 +1,4 @@
 import numpy as np
-import random
 from itertools import product
 from gage.functions.interpolate import interpolate_table
 
@@ -30,11 +29,11 @@ def concave_table(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=None,
     max_deriv = max_y - min_y
     concave_table = np.zeros(shape=(batch_size, *([num_points] * dim)))
     concave_table[(slice(None),) + ((0,) * dim)] = max_deriv
-    concave_table[(slice(None),) + ((-1,) * dim)] = 0
+    concave_table[(slice(None),) + ((-1,) * dim)] = 1e-6  # Set final derivative to a low value.
 
     inserted = np.array([(0,) * dim, (num_points - 1,) * dim])  # Keep track of which points have been inserted.
     to_insert = list(product(*[range(num_points) for _ in range(dim)]))[1:-1]  # Generate all points to insert.
-    random.shuffle(to_insert)  # Shuffle the points to avoid bias from the uniform distribution.
+    rng.shuffle(to_insert)  # Shuffle the points to avoid bias from the uniform distribution.
 
     # Sort points along each dimension
     for idx in to_insert:
@@ -71,12 +70,13 @@ def concave_table(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=None,
     return concave_table
 
 
-def concave(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=None, seed=None):
+def concave(dim, batch_size=1, batched=True, min_y=0, max_y=10, num_points=10, rng=None, seed=None):
     """Generate a random concave, monotonically increasing, function.
 
     Args:
         dim (int): The dimension of the function.
         batch_size (int, optional): The batch size. Defaults to 1.
+        batched (bool, optional): Whether to return a batched function. Defaults to True.
         min_y (int, optional): The minimum y value. Defaults to 0.
         max_y (int, optional): The maximum y value. Defaults to 10.
         num_points (int, optional): The number of points. Defaults to 10.
@@ -87,5 +87,8 @@ def concave(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=None, seed=
         callable: A random concave function as a table.
     """
     concave_t = concave_table(dim, batch_size, min_y, max_y, num_points, rng, seed)
-    concave_f = interpolate_table(concave_t, batched=True, method='linear')
+    batched = batch_size > 1 or batched
+    if not batched:
+        concave_t = concave_t[0]
+    concave_f = interpolate_table(concave_t, batched=batched, method='linear')
     return concave_f
