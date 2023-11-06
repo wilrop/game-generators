@@ -7,6 +7,11 @@ def identity(num_players, num_actions):
     Note:
         An identity game is defined as a game where the vector payoff is the joint strategy.
 
+    References:
+        .. [1] Röpke, W., Groenland, C., Rădulescu, R., Nowé, A., & Roijers, D. M. (2023). Bridging the gap between
+            single and multi objective games. Proceedings of the 2023 International Conference on Autonomous Agents and
+            Multiagent Systems, 224–232.
+
     Args:
         num_players (int): The number of players.
         num_actions (int): The number of actions.
