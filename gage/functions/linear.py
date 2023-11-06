@@ -1,4 +1,4 @@
-from polynomial import polynomial
+from gage.functions.polynomial import polynomial
 
 
 def linear(dim, min_coef=0., max_coef=5., seed=None, rng=None):
