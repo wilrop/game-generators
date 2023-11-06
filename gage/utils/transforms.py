@@ -1,8 +1,8 @@
 import numpy as np
 
 
-def normal_form(games, batched=True):
-    """Convert a batch of games to normal form.
+def to_joint_payoff(games, batched=True):
+    """Convert a batch of games to joint payoff format.
 
     Args:
         games (np.ndarray): The batch of games.
