@@ -1,4 +1,5 @@
 import numpy as np
+from gage.utils.transforms import make_batched
 
 
 def bertrand_oligopoly(num_players,
@@ -29,11 +30,11 @@ def bertrand_oligopoly(num_players,
     costs = {}
 
     for price in range(1, num_actions + 1):
-        demands[price] = demand_fun([price])
+        demands[price] = demand_fun(make_batched([price], batch_size))
         costs[price] = {}
 
         for m in range(1, num_players + 1):
-            costs[price][m] = cost_fun(demands[price] / m)
+            costs[price][m] = np.squeeze(cost_fun(demands[price][..., None] / m, ))
 
     payoff_matrices = np.zeros((batch_size, num_players, *([num_actions] * num_players)))
 
@@ -42,7 +43,7 @@ def bertrand_oligopoly(num_players,
         m = len(min_players)
         min_price = np.min(idx) + 1
         payoffs = min_price * (demands[min_price] / m) - costs[min_price][m]
-        payoff_matrices[(slice(None), min_players) + idx] = payoffs
+        payoff_matrices[(slice(None), min_players) + idx] = payoffs[..., None]
 
     if batch_size == 1:
         return payoff_matrices[0]
