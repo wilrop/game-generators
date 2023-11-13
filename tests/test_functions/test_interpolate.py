@@ -24,7 +24,7 @@ class TestInterpolateTable(unittest.TestCase):
         conc_f = interpolate_table(conc_tables, batched=True)
 
         grid = list(product(*[range(self.num_points) for _ in range(self.dim)]))
-        f_vals = conc_f(make_batched(grid, self.batch_size))
+        f_vals = [f(grid) for f in conc_f]
         t_vals = np.swapaxes([conc_tables[(slice(None),) + tuple(coords)] for coords in grid], 0, 1)
         np.testing.assert_equal(f_vals, t_vals)
 

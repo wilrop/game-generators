@@ -26,14 +26,14 @@ class TestPotential(unittest.TestCase):
                 comp_strat = list(opp_strat)
                 comp_strat.insert(player, 0)
                 comp_strat = tuple(comp_strat)
-                comp_potential = potential_funcs(make_batched(comp_strat, batch_size))
+                comp_potential = np.array([f(comp_strat) for f in potential_funcs])
                 comp_u = payoff_matrices[(slice(None), player) + comp_strat]
 
                 for action in range(1, player_actions):  # Verify that the utilities correspond to the potential.
                     joint_strat = list(opp_strat)
                     joint_strat.insert(player, action)
                     joint_strat = tuple(joint_strat)
-                    new_potential = potential_funcs(make_batched(joint_strat, batch_size))
+                    new_potential = np.array([f(joint_strat) for f in potential_funcs])
                     new_u = (new_potential - comp_potential) / weights[:, player] + comp_u
                     np.testing.assert_allclose(payoff_matrices[(slice(None), player) + joint_strat], new_u)
 
@@ -62,9 +62,11 @@ class TestPotential(unittest.TestCase):
         return potential_func
 
     def test_wikipedia_example(self):
-        potential_func = self.custom_potential_wikipedia()
-        payoff_matrices = potential(2,
-                                    2,
+        num_players = 2
+        num_actions = 2
+        potential_func = [self.custom_potential_wikipedia() for _ in range(self.batch_size)]
+        payoff_matrices = potential(num_players,
+                                    num_actions,
                                     potential_func,
                                     batch_size=self.batch_size,
                                     min_r=self.min_r,

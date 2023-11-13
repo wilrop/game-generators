@@ -84,7 +84,7 @@ def concave(dim, batch_size=1, batched=True, min_y=0, max_y=10, num_points=10, r
         seed (int, optional): The random seed. Defaults to None.
 
     Returns:
-        callable: A random concave function as a table.
+        list | callable: A collection of of concave functions or a single concave function.
     """
     concave_t = concave_table(dim, batch_size, min_y, max_y, num_points, rng, seed)
     batched = batch_size > 1 or batched

@@ -4,8 +4,8 @@ from gage.utils.transforms import make_batched
 
 def bertrand_oligopoly(num_players,
                        num_actions,
-                       cost_fun,
-                       demand_fun,
+                       cost_funs,
+                       demand_funs,
                        batch_size=1):
     """Creates an instance of a Bertrand Oligopoly using arbitrary cost and demand functions.
 
@@ -19,22 +19,25 @@ def bertrand_oligopoly(num_players,
     Args:
         num_players (int): The number of players.
         num_actions (int): The number of actions.
-        cost_fun (callable): The cost function.
-        demand_fun (callable): The demand function.
+        cost_funs (list): The cost function.
+        demand_funs (list): The demand function.
         batch_size (int, optional): The batch size. Defaults to 1.
 
     Returns:
         np.ndarray: A random Bertrand Oligopoly game.
     """
+    assert batch_size == len(cost_funs), "There must be one cost function per batch."
+    assert batch_size == len(demand_funs), "There must be one demand function per batch."
+
     demands = {}
     costs = {}
 
     for price in range(1, num_actions + 1):
-        demands[price] = demand_fun(make_batched([price], batch_size))
+        demands[price] = np.array([f([price]) for f in demand_funs])
         costs[price] = {}
 
         for m in range(1, num_players + 1):
-            costs[price][m] = np.squeeze(cost_fun(demands[price][..., None] / m, ))
+            costs[price][m] = np.array([f(demand / m) for f, demand in zip(cost_funs, demands[price])])
 
     payoff_matrices = np.zeros((batch_size, num_players, *([num_actions] * num_players)))
 
@@ -42,8 +45,8 @@ def bertrand_oligopoly(num_players,
         min_players = np.nonzero(idx == np.min(idx))[0]
         m = len(min_players)
         min_price = np.min(idx) + 1
-        payoffs = min_price * (demands[min_price] / m) - costs[min_price][m]
-        payoff_matrices[(slice(None), min_players) + idx] = payoffs[..., None]
+        payoffs = min_price * (demands[min_price] / m) - costs[min_price][m][..., None]
+        payoff_matrices[(slice(None), min_players) + idx] = payoffs
 
     if batch_size == 1:
         return payoff_matrices[0]

@@ -2,11 +2,10 @@ import unittest
 import numpy as np
 from gage.functions.concave import concave
 from gage.nfg.bertrand_oligopoly import bertrand_oligopoly
-from gage.utils.transforms import make_batched
 
 
 class TestBertrandOligopoly(unittest.TestCase):
-    batch_size = 2
+    batch_size = 4
     num_players = 3
     num_actions = 5
     min_y = 0
@@ -15,7 +14,7 @@ class TestBertrandOligopoly(unittest.TestCase):
     seed = 0
 
     def test_bertrand_oligopoly(self):
-        cost_funs = lambda x: np.full((self.batch_size, 1), 3)
+        cost_funs = [lambda x: 3 for _ in range(self.batch_size)]
         demand_funs = concave(1,
                               batch_size=self.batch_size,
                               min_y=self.min_y,
@@ -25,18 +24,18 @@ class TestBertrandOligopoly(unittest.TestCase):
 
         payoff_matrices = bertrand_oligopoly(self.num_players,
                                              self.num_actions,
-                                             cost_fun=cost_funs,
-                                             demand_fun=demand_funs,
+                                             cost_funs=cost_funs,
+                                             demand_funs=demand_funs,
                                              batch_size=self.batch_size)
 
-        for batch_id, payoff_matrix in enumerate(payoff_matrices):
+        for payoff_matrix, cost_fun, demand_fun in zip(payoff_matrices, cost_funs, demand_funs):
             for idx in np.ndindex(*([self.num_actions] * self.num_players)):
                 min_players = np.nonzero(idx == np.min(idx))[0]
                 remaining_players = np.delete(np.arange(self.num_players), min_players)
                 m = len(min_players)
                 min_price = np.min(idx) + 1
-                demand = demand_funs(make_batched([min_price], self.batch_size))[batch_id]
-                cost = cost_funs([demand / m])[batch_id]
+                demand = demand_fun([min_price])
+                cost = cost_fun(demand / m)
                 payoffs = min_price * (demand / m) - cost
                 np.testing.assert_allclose(payoff_matrix[(min_players,) + idx], payoffs[0])
                 if len(remaining_players) > 0:

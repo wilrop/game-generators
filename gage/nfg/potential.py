@@ -4,7 +4,7 @@ from gage.utils.transforms import coordinate_grid, make_batched
 
 def potential(num_players,
               num_actions,
-              potential_func,
+              potential_funs,
               batch_size=1,
               min_r=0,
               max_r=5,
@@ -22,7 +22,7 @@ def potential(num_players,
     Args:
         num_players (int): The number of players.
         num_actions (int): The number of actions.
-        potential_func (callable): The potential function.
+        potential_funs (list): The potential function.
         batch_size (int, optional): The batch size. Defaults to 1.
         min_r (int, optional): The minimum reward. This is not the global minimum reward, but rather the  minimum reward
             before uniquely determining the other rewards using the potential function. Defaults to 0.
@@ -41,9 +41,10 @@ def potential(num_players,
     payoff_shape = (batch_size, num_players) + action_shape
 
     payoff_matrices = np.zeros(shape=payoff_shape)
-    coordinates = make_batched(coordinate_grid(action_shape), batch_size)
-    potentials = potential_func(coordinates)
-
+    coordinates = coordinate_grid(action_shape)
+    potentials = np.array([potential_fun(coordinates) for potential_fun in potential_funs])
+    print(potentials.shape)
+    print(potentials)
     for player in range(num_players):
         # Set random starting values for the payoff matrix.
         starting_idcs = [slice(None)] * num_players
