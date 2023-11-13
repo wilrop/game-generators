@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from itertools import product
 from gage.functions.concave import concave_table, concave
+from gage.functions.monotonic import decreasing_table, decreasing
 
 
 def plot_1D_table_function(table_function):
@@ -45,23 +46,27 @@ def plot_2D_table_function(table_function):
 
 
 if __name__ == '__main__':
-    seed = 2
-    batch_size = 1
-    num_points = 20
+    seed = 1
+    num_points_table = 20
+    num_points_f = 1000
+
+    # Plot a 1D concave function.
     dim = 1
+    f = concave(dim, batch_size=1, batched=False, num_points=num_points_table, seed=seed)
+    plot_1D_function(f, min_x=0, max_x=num_points_table - 1, num_points=num_points_f)
 
-    # Plot a 1D function.
-    batch_f_1D = concave_table(dim, batch_size=batch_size, num_points=num_points, seed=seed)
-    print(batch_f_1D)
-    f_1D = batch_f_1D[0]
-    plot_1D_table_function(f_1D)
-
-    # Plot its functional equivalent.
-    f = concave(dim, batched=False, num_points=num_points, seed=seed)
-    plot_1D_function(f, min_x=0, max_x=num_points - 1, num_points=1000)
-
-    # Plot a 2D function.
+    # Plot a 2D concave function.
     dim = 2
-    batch_f_2D = concave_table(dim, batch_size=batch_size, num_points=num_points)
+    batch_f_2D = concave_table(dim, batch_size=1, num_points=num_points_table, seed=seed)
     f_2D = batch_f_2D[0]
+    plot_2D_table_function(f_2D)
+
+    # Plot a 1D decreasing function.
+    dim = 1
+    f = decreasing(dim, batched=False, num_points=num_points_table, seed=seed)
+    plot_1D_function(f, min_x=0, max_x=num_points_table - 1, num_points=num_points_f)
+
+    # Plot a 2D decreasing function.
+    dim = 2
+    batch_f_2D = decreasing_table(dim, batch_size=1, num_points=num_points_table, seed=seed)
     plot_2D_table_function(f_2D)
