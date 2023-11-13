@@ -27,6 +27,11 @@ def interpolate_table(table_function, batched=False, method='linear'):
     interpolators = [RegularGridInterpolator(table_points, table_function[i], method=method) for i in range(batch_size)]
 
     def batched_interp(points):
-        return np.array([interpolator(points) for interpolator in interpolators])
+        points = np.array(points)
+        pshape = points.shape
+        points = points.reshape(batch_size, -1, len(table_shape))  # Flatten into points of shape (Batch, N, dim).
+        res = np.array([interpolator(p) for interpolator, p in zip(interpolators, points)])
+        final_shape = pshape[:-1]
+        return res.reshape(final_shape)
 
     return batched_interp
