@@ -2,6 +2,7 @@ import unittest
 import numpy as np
 from gage.functions.concave import concave
 from gage.nfg.bertrand_oligopoly import bertrand_oligopoly
+from gage.utils.transforms import make_batched
 
 
 class TestBertrandOligopoly(unittest.TestCase):
@@ -16,11 +17,11 @@ class TestBertrandOligopoly(unittest.TestCase):
     def test_bertrand_oligopoly(self):
         cost_funs = lambda x: np.full((self.batch_size, 1), 3)
         demand_funs = concave(1,
-                             batch_size=self.batch_size,
-                             min_y=self.min_y,
-                             max_y=self.max_y,
-                             num_points=self.num_points,
-                             seed=self.seed)
+                              batch_size=self.batch_size,
+                              min_y=self.min_y,
+                              max_y=self.max_y,
+                              num_points=self.num_points,
+                              seed=self.seed)
 
         payoff_matrices = bertrand_oligopoly(self.num_players,
                                              self.num_actions,
@@ -34,7 +35,7 @@ class TestBertrandOligopoly(unittest.TestCase):
                 remaining_players = np.delete(np.arange(self.num_players), min_players)
                 m = len(min_players)
                 min_price = np.min(idx) + 1
-                demand = demand_funs([min_price])[batch_id]
+                demand = demand_funs(make_batched([min_price], self.batch_size))[batch_id]
                 cost = cost_funs([demand / m])[batch_id]
                 payoffs = min_price * (demand / m) - cost
                 np.testing.assert_allclose(payoff_matrix[(min_players,) + idx], payoffs[0])
