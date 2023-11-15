@@ -103,13 +103,15 @@ class TestPotential(unittest.TestCase):
         num_players = 2
         num_actions = 2
         potential_funcs = [self.custom_potential_wikipedia() for _ in range(self.batch_size)]
-        payoff_matrices = potential(num_players,
-                                    num_actions,
-                                    potential_funcs,
-                                    batch_size=self.batch_size,
-                                    min_r=self.min_r,
-                                    max_r=self.max_r,
-                                    seed=self.seed)
+        payoff_matrices = potential(
+            num_players,
+            num_actions,
+            potential_funcs,
+            batch_size=self.batch_size,
+            min_r=self.min_r,
+            max_r=self.max_r,
+            seed=self.seed,
+        )
 
         self.check_potential(payoff_matrices, potential_funcs, np.ones((self.batch_size, 2)))
 
@@ -119,14 +121,16 @@ class TestPotential(unittest.TestCase):
         rng = np.random.default_rng(self.seed)
         potential_funcs = decreasing(num_players, self.batch_size, num_points=num_actions, seed=self.seed)
         weights = rng.uniform(low=0, high=1, size=(self.batch_size, num_players))
-        payoff_matrices = potential(num_players,
-                                    num_actions,
-                                    potential_funcs,
-                                    batch_size=self.batch_size,
-                                    weights=weights,
-                                    min_r=self.min_r,
-                                    max_r=self.max_r,
-                                    seed=self.seed)
+        payoff_matrices = potential(
+            num_players,
+            num_actions,
+            potential_funcs,
+            batch_size=self.batch_size,
+            weights=weights,
+            min_r=self.min_r,
+            max_r=self.max_r,
+            seed=self.seed,
+        )
 
         self.check_potential(payoff_matrices, potential_funcs, weights)
 
@@ -134,12 +138,12 @@ class TestPotential(unittest.TestCase):
         num_players = 2
         num_facilities = 2
         payoff_funcs = decreasing(1, self.batch_size * num_facilities, num_points=num_players + 1, seed=self.seed)
-        payoff_funcs = [payoff_funcs[i::self.batch_size] for i in range(self.batch_size)]
+        payoff_funcs = [payoff_funcs[i :: self.batch_size] for i in range(self.batch_size)]
         payoff_matrices = congestion(num_players, num_facilities, payoff_funcs, batch_size=self.batch_size)
         weights = np.ones((self.batch_size, num_players))
         potential_funcs = [create_congestion_potential_func(funcs, num_facilities) for funcs in payoff_funcs]
         self.check_potential(payoff_matrices, potential_funcs, weights)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

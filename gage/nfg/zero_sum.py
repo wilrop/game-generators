@@ -21,7 +21,7 @@ def zero_sum(num_players, num_actions, batch_size=1, min_r=0, max_r=5, rng=None,
     """
     rng = rng if rng is not None else np.random.default_rng(seed)
 
-    num_payoffs = (num_actions ** num_players)
+    num_payoffs = num_actions**num_players
     payoffs = rng.uniform(low=min_r, high=max_r, size=(batch_size, num_payoffs, num_players))
 
     # Shift the array so that its mean is zero
@@ -31,8 +31,9 @@ def zero_sum(num_players, num_actions, batch_size=1, min_r=0, max_r=5, rng=None,
     payoffs -= np.sum(payoffs) / num_players
 
     # Construct the payoff matrix
-    payoff_matrices = np.expand_dims(payoffs, -1).swapaxes(1, 2).reshape(
-        (batch_size, num_players, *[num_actions] * num_players))
+    payoff_matrices = (
+        np.expand_dims(payoffs, -1).swapaxes(1, 2).reshape((batch_size, num_players, *[num_actions] * num_players))
+    )
 
     if batch_size == 1:
         return payoff_matrices[0]

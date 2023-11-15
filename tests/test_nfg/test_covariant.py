@@ -22,15 +22,23 @@ class TestCovariant(unittest.TestCase):
             np.testing.assert_allclose(cov_matrix, test_cov, rtol=0.4)
 
     def test_2p(self):
-        payoff_matrices = covariant(2, self.num_actions, batch_size=self.batch_size, mean=self.mean,
-                                    std=self.std, cov=self.cov, seed=self.seed)
+        payoff_matrices = covariant(
+            2, self.num_actions, batch_size=self.batch_size, mean=self.mean, std=self.std, cov=self.cov, seed=self.seed
+        )
         self.check_covariance(2, payoff_matrices)
 
     def test_np(self):
-        payoff_matrices = covariant(self.n_players, self.num_actions, batch_size=self.batch_size, mean=self.mean,
-                                    std=self.std, cov=self.cov, seed=self.seed)
+        payoff_matrices = covariant(
+            self.n_players,
+            self.num_actions,
+            batch_size=self.batch_size,
+            mean=self.mean,
+            std=self.std,
+            cov=self.cov,
+            seed=self.seed,
+        )
         self.check_covariance(self.n_players, payoff_matrices)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

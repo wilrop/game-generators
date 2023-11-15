@@ -22,8 +22,11 @@ def war_of_attrition(timesteps, batch_size=1, min_r=20, max_r=20, min_dec=1, max
     """
     rng = rng if rng is not None else np.random.default_rng(seed)
 
-    valuations = rng.uniform(low=min_r, high=max_r, size=(batch_size, 2, 1, 1)).repeat(timesteps, axis=2).repeat(
-        timesteps, axis=3)
+    valuations = (
+        rng.uniform(low=min_r, high=max_r, size=(batch_size, 2, 1, 1))
+        .repeat(timesteps, axis=2)
+        .repeat(timesteps, axis=3)
+    )
     decrements = rng.uniform(low=min_dec, high=max_dec, size=(batch_size, 2))
 
     u1, u2 = np.triu_indices(timesteps, k=1)

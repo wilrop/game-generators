@@ -48,13 +48,9 @@ def decreasing_table(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=No
     Returns:
         np.ndarray: The table of decreasing values.
     """
-    values = - increasing_table(dim,
-                                batch_size=batch_size,
-                                min_y=min_y,
-                                max_y=max_y,
-                                num_points=num_points,
-                                rng=rng,
-                                seed=seed)
+    values = -increasing_table(
+        dim, batch_size=batch_size, min_y=min_y, max_y=max_y, num_points=num_points, rng=rng, seed=seed
+    )
     return values + (max_y - min_y)
 
 
@@ -74,17 +70,13 @@ def increasing(dim, batch_size=1, batched=True, min_y=0, max_y=10, num_points=10
     Returns:
         callable: An increasing function.
     """
-    values = increasing_table(dim,
-                              batch_size=batch_size,
-                              min_y=min_y,
-                              max_y=max_y,
-                              num_points=num_points,
-                              rng=rng,
-                              seed=seed)
+    values = increasing_table(
+        dim, batch_size=batch_size, min_y=min_y, max_y=max_y, num_points=num_points, rng=rng, seed=seed
+    )
     batched = batch_size > 1 or batched
     if not batched:
         values = values[0]
-    increasing_f = interpolate_table(values, batched=batched, method='linear')
+    increasing_f = interpolate_table(values, batched=batched, method="linear")
     return increasing_f
 
 
@@ -104,15 +96,11 @@ def decreasing(dim, batch_size=1, batched=True, min_y=0, max_y=10, num_points=10
     Returns:
         callable: A decreasing function.
     """
-    values = decreasing_table(dim,
-                              batch_size=batch_size,
-                              min_y=min_y,
-                              max_y=max_y,
-                              num_points=num_points,
-                              rng=rng,
-                              seed=seed)
+    values = decreasing_table(
+        dim, batch_size=batch_size, min_y=min_y, max_y=max_y, num_points=num_points, rng=rng, seed=seed
+    )
     batched = batch_size > 1 or batched
     if not batched:
         values = values[0]
-    decreasing_f = interpolate_table(values, batched=batched, method='linear')
+    decreasing_f = interpolate_table(values, batched=batched, method="linear")
     return decreasing_f

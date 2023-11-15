@@ -24,25 +24,19 @@ class TestMajorityVoting(unittest.TestCase):
     def test_small(self):
         num_players = 2
         num_candidates = 3
-        payoff_matrices = majority_voting(num_players,
-                                          num_candidates,
-                                          batch_size=self.batch_size,
-                                          min_r=self.min_r,
-                                          max_r=self.max_r,
-                                          seed=self.seed)
+        payoff_matrices = majority_voting(
+            num_players, num_candidates, batch_size=self.batch_size, min_r=self.min_r, max_r=self.max_r, seed=self.seed
+        )
         self.check_majority_voting(num_players, num_candidates, payoff_matrices)
 
     def test_large(self):
         num_players = 4
         num_candidates = 5
-        payoff_matrices = majority_voting(num_players,
-                                          num_candidates,
-                                          batch_size=self.batch_size,
-                                          min_r=self.min_r,
-                                          max_r=self.max_r,
-                                          seed=self.seed)
+        payoff_matrices = majority_voting(
+            num_players, num_candidates, batch_size=self.batch_size, min_r=self.min_r, max_r=self.max_r, seed=self.seed
+        )
         self.check_majority_voting(num_players, num_candidates, payoff_matrices)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

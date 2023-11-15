@@ -9,10 +9,9 @@ class TestBachStravinsky(unittest.TestCase):
     seed = 0
 
     def test_battle_of_the_sexes(self):
-        payoff_matrices = bach_stravinsky(batch_size=self.batch_size,
-                                          min_r=self.min_r,
-                                          max_r=self.max_r,
-                                          seed=self.seed)
+        payoff_matrices = bach_stravinsky(
+            batch_size=self.batch_size, min_r=self.min_r, max_r=self.max_r, seed=self.seed
+        )
         for payoffs in payoff_matrices:
             m1, m2 = payoffs
             if m1[0, 0] == m2[0, 0]:
@@ -34,5 +33,5 @@ class TestBachStravinsky(unittest.TestCase):
             self.assertTrue(c < p1 < p2 or c < p2 < p1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

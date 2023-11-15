@@ -10,10 +10,7 @@ class TestHawkDove(unittest.TestCase):
     seed = 0
 
     def test_hawk_dove(self):
-        payoff_matrices = hawk_dove(batch_size=self.batch_size,
-                                    min_r=self.min_r,
-                                    max_r=self.max_r,
-                                    seed=self.seed)
+        payoff_matrices = hawk_dove(batch_size=self.batch_size, min_r=self.min_r, max_r=self.max_r, seed=self.seed)
 
         a1 = payoff_matrices[:, 0, 1, 0]
         b1 = payoff_matrices[:, 0, 0, 0]
@@ -35,5 +32,5 @@ class TestHawkDove(unittest.TestCase):
         np.testing.assert_array_less(d1, c1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

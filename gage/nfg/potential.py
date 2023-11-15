@@ -2,15 +2,9 @@ import numpy as np
 from gage.utils.generators import coordinate_grid
 
 
-def potential(num_players,
-              num_actions,
-              potential_funs,
-              batch_size=1,
-              min_r=0,
-              max_r=5,
-              weights=None,
-              rng=None,
-              seed=None):
+def potential(
+    num_players, num_actions, potential_funs, batch_size=1, min_r=0, max_r=5, weights=None, rng=None, seed=None
+):
     """Create a potential game with a weighted potential function.
 
     Note:
@@ -67,7 +61,7 @@ def potential(num_players,
             comp_potentials = potentials[potential_comp_idx]
             comp_payoffs = payoff_matrices[payoff_comp_idx]
 
-            new_ps = (new_potentials - comp_potentials) / weights[:, player:player + 1] + comp_payoffs
+            new_ps = (new_potentials - comp_potentials) / weights[:, player : player + 1] + comp_payoffs
             new_idcs = (slice(None), player) + tuple(strat_idcs)
             payoff_matrices[new_idcs] = new_ps  # Set the payoffs.
 

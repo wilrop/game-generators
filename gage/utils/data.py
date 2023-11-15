@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 
-def save_games(payoff_matrices, separate=True, path='.', prefix='game'):
+def save_games(payoff_matrices, separate=True, path=".", prefix="game"):
     """Save a game or games to disk using the numpy binary format.
 
     Args:
@@ -15,18 +15,18 @@ def save_games(payoff_matrices, separate=True, path='.', prefix='game'):
     Returns:
         None
     """
-    suffix = '.npy'
+    suffix = ".npy"
 
     if separate:
         for i, payoff_matrix in enumerate(payoff_matrices):
-            filename = f'{prefix}_{i}{suffix}'
-            np.save(f'{path}/{filename}', payoff_matrix)
+            filename = f"{prefix}_{i}{suffix}"
+            np.save(f"{path}/{filename}", payoff_matrix)
     else:
-        filename = f'{prefix}{suffix}'
-        np.save(f'{path}/{filename}', payoff_matrices)
+        filename = f"{prefix}{suffix}"
+        np.save(f"{path}/{filename}", payoff_matrices)
 
 
-def load_games(path='.'):
+def load_games(path="."):
     """Load a game or games from disk using the numpy binary format.
 
     Args:
@@ -37,9 +37,9 @@ def load_games(path='.'):
     """
     if os.path.isdir(path):
         files = os.listdir(path)
-        files = [f for f in files if f.endswith('.npy')]
-        files = sorted(files, key=lambda x: int(x.split('_')[1].split('.')[0]))
-        payoff_matrices = np.array([np.load(f'{path}/{f}') for f in files])
+        files = [f for f in files if f.endswith(".npy")]
+        files = sorted(files, key=lambda x: int(x.split("_")[1].split(".")[0]))
+        payoff_matrices = np.array([np.load(f"{path}/{f}") for f in files])
     else:
         payoff_matrices = np.load(path)
     return payoff_matrices

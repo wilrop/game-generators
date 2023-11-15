@@ -25,31 +25,31 @@ def generate_nfg(game, *args, **kwargs):
     Returns:
         np.ndarray: The batch of games.
     """
-    if game == 'bach_stravinsky':
+    if game == "bach_stravinsky":
         return bach_stravinsky(*args, **kwargs)
-    elif game == 'bertrand_oligopoly':
+    elif game == "bertrand_oligopoly":
         return bertrand_oligopoly(*args, **kwargs)
-    elif game == 'chicken':
+    elif game == "chicken":
         return chicken(*args, **kwargs)
-    elif game == 'congestion':
+    elif game == "congestion":
         return congestion(*args, **kwargs)
-    elif game == 'covariant':
+    elif game == "covariant":
         return covariant(*args, **kwargs)
-    elif game == 'discrete_uniform':
+    elif game == "discrete_uniform":
         return discrete_uniform(*args, **kwargs)
-    elif game == 'grab_the_dollar':
+    elif game == "grab_the_dollar":
         return grab_the_dollar(*args, **kwargs)
-    elif game == 'hawk_dove':
+    elif game == "hawk_dove":
         return hawk_dove(*args, **kwargs)
-    elif game == 'majority_voting':
+    elif game == "majority_voting":
         return majority_voting(*args, **kwargs)
-    elif game == 'potential':
+    elif game == "potential":
         return potential(*args, **kwargs)
-    elif game == 'random_uniform':
+    elif game == "random_uniform":
         return random_uniform(*args, **kwargs)
-    elif game == 'war_of_attrition':
+    elif game == "war_of_attrition":
         return war_of_attrition(*args, **kwargs)
-    elif game == 'zero_sum':
+    elif game == "zero_sum":
         return zero_sum(*args, **kwargs)
     else:
-        raise ValueError(f'Unknown game {game}')
+        raise ValueError(f"Unknown game {game}")

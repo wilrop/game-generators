@@ -13,9 +13,9 @@ class TestCongestion(unittest.TestCase):
     seed = 1
 
     def check_congestion(self, num_players, num_facilities):
-        num_actions = 2 ** num_facilities - 1
+        num_actions = 2**num_facilities - 1
         payoff_funcs = decreasing(1, self.batch_size * num_facilities, num_points=num_players + 1, seed=self.seed)
-        payoff_funcs = [payoff_funcs[i::self.batch_size] for i in range(self.batch_size)]
+        payoff_funcs = [payoff_funcs[i :: self.batch_size] for i in range(self.batch_size)]
         payoff_matrices = congestion(num_players, num_facilities, payoff_funcs, batch_size=self.batch_size)
         actions = list(chain.from_iterable(combinations(range(num_facilities), r) for r in range(num_facilities + 1)))
         actions = actions[1:]
@@ -48,5 +48,5 @@ class TestCongestion(unittest.TestCase):
         self.check_congestion(num_players, num_facilities)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,11 +1,7 @@
 import numpy as np
 
 
-def bertrand_oligopoly(num_players,
-                       num_actions,
-                       cost_funs,
-                       demand_funs,
-                       batch_size=1):
+def bertrand_oligopoly(num_players, num_actions, cost_funs, demand_funs, batch_size=1):
     """Creates an instance of a Bertrand Oligopoly using arbitrary cost and demand functions.
 
     In the Bertrand Oligopoly, each player offering the object at the lowest price p will receive a payoff of

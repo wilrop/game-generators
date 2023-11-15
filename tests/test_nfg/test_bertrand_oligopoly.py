@@ -15,18 +15,18 @@ class TestBertrandOligopoly(unittest.TestCase):
 
     def test_bertrand_oligopoly(self):
         cost_funs = [lambda x: 3 for _ in range(self.batch_size)]
-        demand_funs = concave(1,
-                              batch_size=self.batch_size,
-                              min_y=self.min_y,
-                              max_y=self.max_y,
-                              num_points=self.num_points,
-                              seed=self.seed)
+        demand_funs = concave(
+            1,
+            batch_size=self.batch_size,
+            min_y=self.min_y,
+            max_y=self.max_y,
+            num_points=self.num_points,
+            seed=self.seed,
+        )
 
-        payoff_matrices = bertrand_oligopoly(self.num_players,
-                                             self.num_actions,
-                                             cost_funs=cost_funs,
-                                             demand_funs=demand_funs,
-                                             batch_size=self.batch_size)
+        payoff_matrices = bertrand_oligopoly(
+            self.num_players, self.num_actions, cost_funs=cost_funs, demand_funs=demand_funs, batch_size=self.batch_size
+        )
 
         for payoff_matrix, cost_fun, demand_fun in zip(payoff_matrices, cost_funs, demand_funs):
             for idx in np.ndindex(*([self.num_actions] * self.num_players)):
@@ -42,5 +42,5 @@ class TestBertrandOligopoly(unittest.TestCase):
                     np.testing.assert_array_equal(payoff_matrix[(remaining_players,) + idx], 0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
