@@ -45,7 +45,7 @@ def congestion(num_players, num_facilities, payoff_funcs, batch_size=1):
     actions = list(chain.from_iterable(combinations(range(num_facilities), r) for r in range(num_facilities + 1)))[1:]
     num_actions = len(actions)
     facility_counts = np.zeros((num_actions,) * num_players + (num_facilities,), dtype=int)
-    selected_facilities = np.zeros((batch_size, num_players,) + (num_actions,) * num_players + (num_facilities,),
+    selected_facilities = np.zeros((num_players,) + (num_actions,) * num_players + (num_facilities,),
                                    dtype=bool)
 
     for joint_action in np.ndindex(*((num_actions,) * num_players)):
@@ -55,20 +55,15 @@ def congestion(num_players, num_facilities, payoff_funcs, batch_size=1):
                 facility_counts[joint_action + (facility,)] += count
         for player, action in enumerate(joint_action):
             for facility in actions[action]:
-                selected_facilities[(slice(None), player, *joint_action, facility)] = True
+                selected_facilities[(player, *joint_action, facility)] = True
 
-    """facility_payoffs = [f(facility_counts[..., idx:idx + 1]) for funcs in payoff_funcs for idx, f in enumerate(funcs)]
-    facility_payoffs = np.array(facility_payoffs)
-    print(facility_payoffs.shape)
-    print(facility_counts.shape)
-    print(selected_facilities.shape)"""
     facility_payoffs = np.zeros((batch_size, num_players) + (num_actions,) * num_players + (num_facilities,))
     for batch_idx, funcs in enumerate(payoff_funcs):
         for facility_idx, f in enumerate(funcs):
             payoffs_idx = (batch_idx, slice(None)) + (slice(None),) * num_players + (facility_idx,)
             facility_payoffs[payoffs_idx] = f(facility_counts[..., facility_idx:facility_idx + 1])
 
-    payoff_matrices = np.sum(selected_facilities * facility_payoffs, axis=-1)
+    payoff_matrices = np.sum(selected_facilities[None, ...] * facility_payoffs, axis=-1)
 
     if batch_size == 1:
         return payoff_matrices[0]
