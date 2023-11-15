@@ -43,8 +43,7 @@ def potential(num_players,
     payoff_matrices = np.zeros(shape=payoff_shape)
     coordinates = coordinate_grid(action_shape)
     potentials = np.array([potential_fun(coordinates) for potential_fun in potential_funs])
-    print(potentials.shape)
-    print(potentials)
+
     for player in range(num_players):
         # Set random starting values for the payoff matrix.
         starting_idcs = [slice(None)] * num_players
