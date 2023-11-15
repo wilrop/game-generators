@@ -3,7 +3,6 @@ import numpy as np
 from itertools import product
 from gage.functions.concave import concave_table
 from gage.functions.interpolate import interpolate_table
-from gage.utils.transforms import make_batched
 
 
 class TestInterpolateTable(unittest.TestCase):

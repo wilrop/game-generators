@@ -1,5 +1,6 @@
 import numpy as np
 from gage.functions.interpolate import interpolate_table
+from gage.utils.transforms import scale_array
 
 
 def increasing_table(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=None, seed=None):
@@ -29,9 +30,7 @@ def increasing_table(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=No
     max_values = values[(slice(None),) + ((-1,) * dim)].reshape(batch_size, *([1] * dim))
 
     # Scale the table to the desired range
-    values = (values - min_values) / (max_values - min_values)
-    values = values * (max_y - min_y) + min_y
-    return values
+    return scale_array(values, min_values, max_values, min_y, max_y)
 
 
 def decreasing_table(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=None, seed=None):

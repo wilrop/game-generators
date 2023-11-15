@@ -1,9 +1,49 @@
 import unittest
 import numpy as np
-from gage.utils.payoffs import create_congestion_potential_func
+from itertools import chain, combinations
 from gage.nfg.potential import potential
 from gage.nfg.congestion import congestion
 from gage.functions.monotonic import decreasing
+
+
+def create_congestion_potential_func(funcs, num_facilities):
+    """Create the potential function for the exact potential game representing the congestion game.
+
+    Note:
+        See https://www.cs.ubc.ca/~kevinlb/teaching/cs532l%20-%202013-14/Lectures/Congestion%20Games.pdf for a
+        derivation of the potential function.
+
+    Args:
+        funcs (list): The payoff functions for each facility.
+        num_facilities (int): The number of facilities.
+
+    Returns:
+        callable: The potential function.
+    """
+    actions = list(chain.from_iterable(combinations(range(num_facilities), r) for r in range(num_facilities + 1)))
+    actions = actions[1:]
+    num_actions = len(actions)
+
+    def potential_single_joint_action(joint_action):
+        subset_counts = np.bincount(joint_action, minlength=num_actions)
+        facility_counts = np.zeros(num_facilities, dtype=int)
+        for subset, count in enumerate(subset_counts):
+            for facility in actions[subset]:
+                facility_counts[facility] += count
+        total = 0
+        for facility, count in enumerate(facility_counts):
+            for num in range(1, count + 1):
+                total += funcs[facility]([num])[0]
+        return total
+
+    def potential_func(joint_actions):
+        joint_actions = np.array(joint_actions)
+        if joint_actions.ndim == 1:
+            return potential_single_joint_action(joint_actions)
+        else:
+            return np.apply_along_axis(potential_single_joint_action, -1, joint_actions)
+
+    return potential_func
 
 
 class TestPotential(unittest.TestCase):

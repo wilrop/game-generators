@@ -1,5 +1,5 @@
 import numpy as np
-from gage.utils.transforms import coordinate_grid, make_batched
+from gage.utils.generators import coordinate_grid
 
 
 def potential(num_players,

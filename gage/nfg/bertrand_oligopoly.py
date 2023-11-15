@@ -1,5 +1,4 @@
 import numpy as np
-from gage.utils.transforms import make_batched
 
 
 def bertrand_oligopoly(num_players,

@@ -1,5 +1,5 @@
 import numpy as np
-from gage.utils.payoffs import strictly_decreasing
+from gage.utils.generators import decreasing_sequence
 
 
 def chicken(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
@@ -24,7 +24,7 @@ def chicken(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
     Returns:
         ndarray: A game of chicken.
     """
-    a, b, c, d = strictly_decreasing(4, batch_size=batch_size, min_r=min_r, max_r=max_r, rng=rng, seed=seed)
+    a, b, c, d = decreasing_sequence(4, batch_size=batch_size, min_r=min_r, max_r=max_r, rng=rng, seed=seed)
 
     payoff_matrices = np.zeros((batch_size, 2, 2, 2))
     payoff_matrices[:, [0, 1], [1, 0], [0, 1]] = a.reshape(batch_size, -1)
