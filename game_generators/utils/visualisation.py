@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from itertools import product
-from gage.functions.concave import concave_table, concave
-from gage.functions.monotonic import decreasing_table, decreasing
+from game_generators.functions.concave import concave_table, concave
+from game_generators.functions.monotonic import decreasing_table, decreasing
 
 
 def plot_1D_table_function(table_function):

@@ -1,8 +1,8 @@
 import unittest
 import numpy as np
-from gage.nfg.congestion import congestion
-from gage.functions.monotonic import decreasing
 from itertools import chain, combinations
+from game_generators.nfg.congestion import congestion
+from game_generators.functions.monotonic import decreasing
 
 
 class TestCongestion(unittest.TestCase):

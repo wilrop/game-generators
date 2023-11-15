@@ -1,5 +1,5 @@
 import unittest
-from gage.nfg.grab_the_dollar import grab_the_dollar
+from game_generators.nfg.grab_the_dollar import grab_the_dollar
 
 
 class TestGrabTheDollar(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
-from gage.functions.concave import concave
-from gage.nfg.bertrand_oligopoly import bertrand_oligopoly
+from game_generators.functions.concave import concave
+from game_generators.nfg.bertrand_oligopoly import bertrand_oligopoly
 
 
 class TestBertrandOligopoly(unittest.TestCase):

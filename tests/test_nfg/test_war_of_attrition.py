@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from gage.nfg.war_of_attrition import war_of_attrition
+from game_generators.nfg.war_of_attrition import war_of_attrition
 
 
 class TestWarOfAttrition(unittest.TestCase):

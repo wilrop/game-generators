@@ -1,8 +1,8 @@
 import unittest
 import numpy as np
 from itertools import product
-from gage.functions.concave import concave_table
-from gage.functions.interpolate import interpolate_table
+from game_generators.functions.concave import concave_table
+from game_generators.functions.interpolate import interpolate_table
 
 
 class TestInterpolateTable(unittest.TestCase):

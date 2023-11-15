@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from gage.nfg.majority_voting import majority_voting
+from game_generators.nfg.majority_voting import majority_voting
 
 
 class TestMajorityVoting(unittest.TestCase):

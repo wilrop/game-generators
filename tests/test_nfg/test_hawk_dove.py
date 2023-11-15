@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from gage.nfg.hawk_dove import hawk_dove
+from game_generators.nfg.hawk_dove import hawk_dove
 
 
 class TestHawkDove(unittest.TestCase):

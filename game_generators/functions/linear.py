@@ -1,4 +1,4 @@
-from gage.functions.polynomial import polynomial
+from game_generators.functions.polynomial import polynomial
 
 
 def linear(dim, min_coef=0.0, max_coef=5.0, seed=None, rng=None):

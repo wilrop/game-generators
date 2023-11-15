@@ -1,5 +1,5 @@
 import unittest
-from gage.nfg.bach_stravinsky import bach_stravinsky
+from game_generators.nfg.bach_stravinsky import bach_stravinsky
 
 
 class TestIdentity(unittest.TestCase):

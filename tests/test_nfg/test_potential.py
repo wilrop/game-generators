@@ -1,9 +1,9 @@
 import unittest
 import numpy as np
 from itertools import chain, combinations
-from gage.nfg.potential import potential
-from gage.nfg.congestion import congestion
-from gage.functions.monotonic import decreasing
+from game_generators.nfg.potential import potential
+from game_generators.nfg.congestion import congestion
+from game_generators.functions.monotonic import decreasing
 
 
 def create_congestion_potential_func(funcs, num_facilities):

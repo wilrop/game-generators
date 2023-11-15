@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from gage.nfg.covariant import covariant
+from game_generators.nfg.covariant import covariant
 
 
 class TestCovariant(unittest.TestCase):

@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from gage.functions.concave import concave_table
+from game_generators.functions.concave import concave_table
 
 
 class TestConcaveTable(unittest.TestCase):

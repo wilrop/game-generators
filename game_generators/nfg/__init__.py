@@ -12,6 +12,22 @@ from gage.nfg.random_uniform import random_uniform
 from gage.nfg.war_of_attrition import war_of_attrition
 from gage.nfg.zero_sum import zero_sum
 
+available_games = [
+    "bach_stravinsky",
+    "bertrand_oligopoly",
+    "chicken",
+    "congestion",
+    "covariant",
+    "discrete_uniform",
+    "grab_the_dollar",
+    "hawk_dove",
+    "majority_voting",
+    "potential",
+    "random_uniform",
+    "war_of_attrition",
+    "zero_sum",
+]
+
 
 def generate_nfg(game, *args, **kwargs):
     """Generate a batch of normal-form games from a specified distribution.

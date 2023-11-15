@@ -1,5 +1,5 @@
 import unittest
-from gage.nfg.chicken import chicken
+from game_generators.nfg.chicken import chicken
 
 
 class TestChicken(unittest.TestCase):

@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from gage.nfg.zero_sum import zero_sum
+from game_generators.nfg.zero_sum import zero_sum
 
 
 class TestZeroSum(unittest.TestCase):

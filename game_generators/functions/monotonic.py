@@ -1,6 +1,6 @@
 import numpy as np
-from gage.functions.interpolate import interpolate_table
-from gage.utils.transforms import scale_array
+from game_generators.functions.interpolate import interpolate_table
+from game_generators.utils.transforms import scale_array
 
 
 def increasing_table(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=None, seed=None):

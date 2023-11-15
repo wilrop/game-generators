@@ -1,5 +1,5 @@
 import numpy as np
-from gage.utils.generators import coordinate_grid
+from game_generators.utils.generators import coordinate_grid
 
 
 def potential(
