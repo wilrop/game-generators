@@ -1,16 +1,16 @@
-from gage.nfg.bach_stravinsky import bach_stravinsky
-from gage.nfg.bertrand_oligopoly import bertrand_oligopoly
-from gage.nfg.chicken import chicken
-from gage.nfg.congestion import congestion
-from gage.nfg.covariant import covariant
-from gage.nfg.discrete_uniform import discrete_uniform
-from gage.nfg.grab_the_dollar import grab_the_dollar
-from gage.nfg.hawk_dove import hawk_dove
-from gage.nfg.majority_voting import majority_voting
-from gage.nfg.potential import potential
-from gage.nfg.random_uniform import random_uniform
-from gage.nfg.war_of_attrition import war_of_attrition
-from gage.nfg.zero_sum import zero_sum
+from game_generators.nfg.bach_stravinsky import bach_stravinsky
+from game_generators.nfg.bertrand_oligopoly import bertrand_oligopoly
+from game_generators.nfg.chicken import chicken
+from game_generators.nfg.congestion import congestion
+from game_generators.nfg.covariant import covariant
+from game_generators.nfg.discrete_uniform import discrete_uniform
+from game_generators.nfg.grab_the_dollar import grab_the_dollar
+from game_generators.nfg.hawk_dove import hawk_dove
+from game_generators.nfg.majority_voting import majority_voting
+from game_generators.nfg.potential import potential
+from game_generators.nfg.random_uniform import random_uniform
+from game_generators.nfg.war_of_attrition import war_of_attrition
+from game_generators.nfg.zero_sum import zero_sum
 
 available_games = [
     "bach_stravinsky",
