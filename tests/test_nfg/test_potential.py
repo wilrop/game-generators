@@ -1,14 +1,13 @@
 import unittest
 import numpy as np
+from gage.utils.payoffs import create_congestion_potential_func
 from gage.nfg.potential import potential
+from gage.nfg.congestion import congestion
 from gage.functions.monotonic import decreasing
-from gage.utils.transforms import make_batched
 
 
 class TestPotential(unittest.TestCase):
     batch_size = 2
-    num_players = 3
-    num_actions = 5
     min_r = 0
     max_r = 5
     num_points = 10
@@ -17,7 +16,6 @@ class TestPotential(unittest.TestCase):
     def check_potential(self, payoff_matrices, potential_funcs, weights):
         num_players = payoff_matrices.shape[1]
         strat_shape = payoff_matrices.shape[2:]
-        batch_size = payoff_matrices.shape[0]
 
         for player in range(num_players):  # Loop over all players.
             player_actions = strat_shape[player]
@@ -64,31 +62,43 @@ class TestPotential(unittest.TestCase):
     def test_wikipedia_example(self):
         num_players = 2
         num_actions = 2
-        potential_func = [self.custom_potential_wikipedia() for _ in range(self.batch_size)]
+        potential_funcs = [self.custom_potential_wikipedia() for _ in range(self.batch_size)]
         payoff_matrices = potential(num_players,
                                     num_actions,
-                                    potential_func,
+                                    potential_funcs,
                                     batch_size=self.batch_size,
                                     min_r=self.min_r,
                                     max_r=self.max_r,
                                     seed=self.seed)
 
-        self.check_potential(payoff_matrices, potential_func, np.ones((self.batch_size, 2)))
+        self.check_potential(payoff_matrices, potential_funcs, np.ones((self.batch_size, 2)))
 
     def test_potential(self):
+        num_players = 3
+        num_actions = 5
         rng = np.random.default_rng(self.seed)
-        potential_func = decreasing(self.num_players, self.batch_size, num_points=self.num_actions, seed=self.seed)
-        weights = rng.uniform(low=0, high=1, size=(self.batch_size, self.num_players))
-        payoff_matrices = potential(self.num_players,
-                                    self.num_actions,
-                                    potential_func,
+        potential_funcs = decreasing(num_players, self.batch_size, num_points=num_actions, seed=self.seed)
+        weights = rng.uniform(low=0, high=1, size=(self.batch_size, num_players))
+        payoff_matrices = potential(num_players,
+                                    num_actions,
+                                    potential_funcs,
                                     batch_size=self.batch_size,
                                     weights=weights,
                                     min_r=self.min_r,
                                     max_r=self.max_r,
                                     seed=self.seed)
 
-        self.check_potential(payoff_matrices, potential_func, weights)
+        self.check_potential(payoff_matrices, potential_funcs, weights)
+
+    def test_congestion_as_potential(self):
+        num_players = 2
+        num_facilities = 2
+        payoff_funcs = decreasing(1, self.batch_size * num_facilities, num_points=num_players + 1, seed=self.seed)
+        payoff_funcs = [payoff_funcs[i::self.batch_size] for i in range(self.batch_size)]
+        payoff_matrices = congestion(num_players, num_facilities, payoff_funcs, batch_size=self.batch_size)
+        weights = np.ones((self.batch_size, num_players))
+        potential_funcs = [create_congestion_potential_func(funcs, num_facilities) for funcs in payoff_funcs]
+        self.check_potential(payoff_matrices, potential_funcs, weights)
 
 
 if __name__ == '__main__':
