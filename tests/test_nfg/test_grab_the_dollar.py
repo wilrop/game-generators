@@ -1,5 +1,4 @@
 import unittest
-import numpy as np
 from gage.nfg.grab_the_dollar import grab_the_dollar
 
 

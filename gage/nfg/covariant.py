@@ -22,7 +22,7 @@ def covariant(num_players, num_actions, batch_size=1, mean=0, std=1, cov=0, rng=
     """
     rng = rng if rng is not None else np.random.default_rng(seed)
 
-    if type(mean) == int or type(mean) == float:
+    if isinstance(mean, (int, float)):
         mean = np.full(num_players, mean)
 
     cov = np.full((num_players, num_players), cov)

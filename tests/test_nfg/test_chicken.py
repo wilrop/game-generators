@@ -1,5 +1,4 @@
 import unittest
-import numpy as np
 from gage.nfg.chicken import chicken
 
 

@@ -1,5 +1,4 @@
 import unittest
-import numpy as np
 from gage.nfg.bach_stravinsky import bach_stravinsky
 
 
