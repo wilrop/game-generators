@@ -24,5 +24,5 @@ class TestChicken(unittest.TestCase):
             self.assertTrue(a > b > c > d)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

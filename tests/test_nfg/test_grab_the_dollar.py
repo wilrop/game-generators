@@ -37,22 +37,18 @@ class TestGrabTheDollar(unittest.TestCase):
 
     def test_small(self):
         timesteps = 5
-        payoff_matrices = grab_the_dollar(timesteps,
-                                          batch_size=self.batch_size,
-                                          min_r=self.min_r,
-                                          max_r=self.max_r,
-                                          seed=self.seed)
+        payoff_matrices = grab_the_dollar(
+            timesteps, batch_size=self.batch_size, min_r=self.min_r, max_r=self.max_r, seed=self.seed
+        )
         self.check_grab_the_dollar(timesteps, payoff_matrices)
 
     def test_large(self):
         timesteps = 10
-        payoff_matrices = grab_the_dollar(timesteps,
-                                          batch_size=self.batch_size,
-                                          min_r=self.min_r,
-                                          max_r=self.max_r,
-                                          seed=self.seed)
+        payoff_matrices = grab_the_dollar(
+            timesteps, batch_size=self.batch_size, min_r=self.min_r, max_r=self.max_r, seed=self.seed
+        )
         self.check_grab_the_dollar(timesteps, payoff_matrices)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

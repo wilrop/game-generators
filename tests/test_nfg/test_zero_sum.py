@@ -22,5 +22,5 @@ class TestZeroSum(unittest.TestCase):
         self.check_sum(payoff_matrices)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

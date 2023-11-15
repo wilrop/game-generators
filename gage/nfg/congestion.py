@@ -39,14 +39,16 @@ def congestion(num_players, num_facilities, payoff_funcs, batch_size=1):
 
     if num_facilities > 5:
         import warnings
-        warnings.warn("The number of actions is 2 to the power of the number of facilities. The game matrix grows "
-                      "rapidly at a large numbers of facilities!")
+
+        warnings.warn(
+            "The number of actions is 2 to the power of the number of facilities. The game matrix grows "
+            "rapidly at a large numbers of facilities!"
+        )
 
     actions = list(chain.from_iterable(combinations(range(num_facilities), r) for r in range(num_facilities + 1)))[1:]
     num_actions = len(actions)
     facility_counts = np.zeros((num_actions,) * num_players + (num_facilities,), dtype=int)
-    selected_facilities = np.zeros((num_players,) + (num_actions,) * num_players + (num_facilities,),
-                                   dtype=bool)
+    selected_facilities = np.zeros((num_players,) + (num_actions,) * num_players + (num_facilities,), dtype=bool)
 
     for joint_action in np.ndindex(*((num_actions,) * num_players)):
         subset_counts = np.bincount(joint_action, minlength=num_actions)
@@ -61,7 +63,7 @@ def congestion(num_players, num_facilities, payoff_funcs, batch_size=1):
     for batch_idx, funcs in enumerate(payoff_funcs):
         for facility_idx, f in enumerate(funcs):
             payoffs_idx = (batch_idx, slice(None)) + (slice(None),) * num_players + (facility_idx,)
-            facility_payoffs[payoffs_idx] = f(facility_counts[..., facility_idx:facility_idx + 1])
+            facility_payoffs[payoffs_idx] = f(facility_counts[..., facility_idx : facility_idx + 1])
 
     payoff_matrices = np.sum(selected_facilities[None, ...] * facility_payoffs, axis=-1)
 

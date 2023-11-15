@@ -18,9 +18,9 @@ def discrete_uniform(num_players, num_actions, batch_size=1, min_r=0, max_r=5, r
     """
     rng = rng if rng is not None else np.random.default_rng(seed)
 
-    payoff_matrices = rng.integers(low=min_r,
-                                   high=max_r,
-                                   size=(batch_size, num_players, *([num_actions] * num_players)))
+    payoff_matrices = rng.integers(
+        low=min_r, high=max_r, size=(batch_size, num_players, *([num_actions] * num_players))
+    )
 
     if batch_size == 1:
         return payoff_matrices[0]

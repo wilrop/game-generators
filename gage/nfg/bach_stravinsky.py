@@ -45,8 +45,10 @@ def bach_stravinsky(batch_size=1, min_r=0, max_r=5, rng=None, seed=None):
 
     # Randomly swap the first and second rows.
     swap = rng.choice([True, False], size=batch_size)
-    payoff_matrices[swap, :, 0, :], payoff_matrices[swap, :, 1, :] = payoff_matrices[swap, :, 1, :], payoff_matrices[
-                                                                                                     swap, :, 0, :]
+    payoff_matrices[swap, :, 0, :], payoff_matrices[swap, :, 1, :] = (
+        payoff_matrices[swap, :, 1, :],
+        payoff_matrices[swap, :, 0, :],
+    )
 
     if batch_size == 1:
         return payoff_matrices[0]

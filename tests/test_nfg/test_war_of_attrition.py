@@ -33,26 +33,30 @@ class TestWarOfAttrition(unittest.TestCase):
 
     def test_small(self):
         timesteps = 5
-        payoff_matrices = war_of_attrition(timesteps,
-                                           batch_size=self.batch_size,
-                                           min_r=self.min_r,
-                                           max_r=self.max_r,
-                                           min_dec=self.min_dec,
-                                           max_dec=self.max_dec,
-                                           seed=self.seed)
+        payoff_matrices = war_of_attrition(
+            timesteps,
+            batch_size=self.batch_size,
+            min_r=self.min_r,
+            max_r=self.max_r,
+            min_dec=self.min_dec,
+            max_dec=self.max_dec,
+            seed=self.seed,
+        )
         self.check_war_of_attrition(timesteps, payoff_matrices)
 
     def test_large(self):
         timesteps = 20
-        payoff_matrices = war_of_attrition(timesteps,
-                                           batch_size=self.batch_size,
-                                           min_r=self.min_r,
-                                           max_r=self.max_r,
-                                           min_dec=self.min_dec,
-                                           max_dec=self.max_dec,
-                                           seed=self.seed)
+        payoff_matrices = war_of_attrition(
+            timesteps,
+            batch_size=self.batch_size,
+            min_r=self.min_r,
+            max_r=self.max_r,
+            min_dec=self.min_dec,
+            max_dec=self.max_dec,
+            seed=self.seed,
+        )
         self.check_war_of_attrition(timesteps, payoff_matrices)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

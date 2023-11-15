@@ -26,6 +26,6 @@ def identity(num_players, num_actions):
     for idx in np.ndindex(*([num_actions] * num_players)):
         payoff = np.zeros(dim)
         for i, s in enumerate(idx):
-            payoff[i * num_actions:(i + 1) * num_actions] = strats[s]
+            payoff[i * num_actions : (i + 1) * num_actions] = strats[s]
         identity_game[(slice(None),) + idx] = payoff
     return identity_game

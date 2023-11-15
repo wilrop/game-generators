@@ -40,12 +40,12 @@ def plot_2D_table_function(table_function):
     fx = [table_function[tuple(coords)] for coords in x]
 
     # Plot a scatter plot where the color is the value of the function
-    plt.scatter(x[:, 0], x[:, 1], c=fx, cmap='viridis')
+    plt.scatter(x[:, 0], x[:, 1], c=fx, cmap="viridis")
     plt.colorbar()
     plt.show()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     seed = 1
     num_points_table = 20
     num_points_f = 1000

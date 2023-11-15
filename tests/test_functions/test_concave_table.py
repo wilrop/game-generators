@@ -12,12 +12,14 @@ class TestConcaveTable(unittest.TestCase):
     seed = 0
 
     def test_concave_table(self):
-        conc_tables = concave_table(dim=self.dim,
-                                    batch_size=self.batch_size,
-                                    min_y=self.min_y,
-                                    max_y=self.max_y,
-                                    num_points=self.num_points,
-                                    seed=self.seed)
+        conc_tables = concave_table(
+            dim=self.dim,
+            batch_size=self.batch_size,
+            min_y=self.min_y,
+            max_y=self.max_y,
+            num_points=self.num_points,
+            seed=self.seed,
+        )
 
         for conc_f in conc_tables:
             for d in range(self.dim):  # Undo the cumulative sum.
@@ -39,5 +41,5 @@ class TestConcaveTable(unittest.TestCase):
                 np.testing.assert_array_less(0, conc_f[tuple(down_slices)] - conc_f[tuple(up_slices)])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

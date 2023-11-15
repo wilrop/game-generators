@@ -14,12 +14,14 @@ class TestInterpolateTable(unittest.TestCase):
     seed = 0
 
     def test_interpolate_table(self):
-        conc_tables = concave_table(dim=self.dim,
-                                    batch_size=self.batch_size,
-                                    min_y=self.min_y,
-                                    max_y=self.max_y,
-                                    num_points=self.num_points,
-                                    seed=self.seed)
+        conc_tables = concave_table(
+            dim=self.dim,
+            batch_size=self.batch_size,
+            min_y=self.min_y,
+            max_y=self.max_y,
+            num_points=self.num_points,
+            seed=self.seed,
+        )
         conc_f = interpolate_table(conc_tables, batched=True)
 
         grid = list(product(*[range(self.num_points) for _ in range(self.dim)]))
@@ -28,5 +30,5 @@ class TestInterpolateTable(unittest.TestCase):
         np.testing.assert_equal(f_vals, t_vals)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

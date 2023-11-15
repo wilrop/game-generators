@@ -2,7 +2,7 @@ import numpy as np
 from itertools import product
 
 
-def polynomial(dim, degree, min_coef=0., max_coef=5., seed=None, rng=None):
+def polynomial(dim, degree, min_coef=0.0, max_coef=5.0, seed=None, rng=None):
     """Generate a random polynomial of degree `degree` with coefficients drawn from a uniform distribution.
 
     Args:
@@ -24,6 +24,6 @@ def polynomial(dim, degree, min_coef=0., max_coef=5., seed=None, rng=None):
     coefficients = rng.uniform(low=min_coef, high=max_coef, size=len(exponents))
 
     def poly_f(x):
-        return np.dot(x ** exponents, coefficients)
+        return np.dot(x**exponents, coefficients)
 
     return poly_f

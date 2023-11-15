@@ -3,6 +3,7 @@ from itertools import product
 from gage.functions.interpolate import interpolate_table
 from gage.utils.transforms import scale_array
 
+
 def concave_table(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=None, seed=None):
     """Generate a random concave, monotonically increasing, function as a table of points.
 
@@ -88,5 +89,5 @@ def concave(dim, batch_size=1, batched=True, min_y=0, max_y=10, num_points=10, r
     batched = batch_size > 1 or batched
     if not batched:
         concave_t = concave_t[0]
-    concave_f = interpolate_table(concave_t, batched=batched, method='linear')
+    concave_f = interpolate_table(concave_t, batched=batched, method="linear")
     return concave_f

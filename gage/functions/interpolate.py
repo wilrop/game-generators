@@ -2,7 +2,7 @@ import numpy as np
 from scipy.interpolate import RegularGridInterpolator
 
 
-def interpolate_table(table_function, batched=False, method='linear'):
+def interpolate_table(table_function, batched=False, method="linear"):
     """Interpolate a table function.
 
     Note:

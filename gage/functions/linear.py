@@ -1,7 +1,7 @@
 from gage.functions.polynomial import polynomial
 
 
-def linear(dim, min_coef=0., max_coef=5., seed=None, rng=None):
+def linear(dim, min_coef=0.0, max_coef=5.0, seed=None, rng=None):
     """Generate a random linear function with coefficients drawn from a uniform distribution.
 
     Args:
