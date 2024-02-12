@@ -1,6 +1,6 @@
 import numpy as np
 
-from gage.nfg.generate_nfg import generate_nfg
+from game_generators.nfg import generate_nfg
 
 
 def from_nfg(game, num_players, num_actions, num_objectives, batch_size=1, **kwargs):
