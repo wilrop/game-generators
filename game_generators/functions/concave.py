@@ -69,15 +69,19 @@ def concave_table(dim, batch_size=1, min_y=0, max_y=10, num_points=10, rng=None,
     return scale_array(concave_table, min_values, max_values, min_y, max_y)
 
 
-def concave(dim, batch_size=1, batched=True, min_y=0, max_y=10, num_points=10, rng=None, seed=None):
+def concave(
+    dim, min_vec=None, max_vec=None, min_y=0, max_y=10, batch_size=1, batched=True, num_points=10, rng=None, seed=None
+):
     """Generate a random concave, monotonically increasing, function.
 
     Args:
         dim (int): The dimension of the function.
-        batch_size (int, optional): The batch size. Defaults to 1.
-        batched (bool, optional): Whether to return a batched function. Defaults to True.
+        min_vec (np.ndarray, optional): The minimum value for each dimension. Defaults to None.
+        max_vec (np.ndarray, optional): The maximum value for each dimension. Defaults to None.
         min_y (int, optional): The minimum y value. Defaults to 0.
         max_y (int, optional): The maximum y value. Defaults to 10.
+        batch_size (int, optional): The batch size. Defaults to 1.
+        batched (bool, optional): Whether to return a batched function. Defaults to True.
         num_points (int, optional): The number of points. Defaults to 10.
         rng (np.random.Generator, optional): The random number generator. Defaults to None.
         seed (int, optional): The random seed. Defaults to None.
@@ -89,5 +93,5 @@ def concave(dim, batch_size=1, batched=True, min_y=0, max_y=10, num_points=10, r
     batched = batch_size > 1 or batched
     if not batched:
         concave_t = concave_t[0]
-    concave_f = interpolate_table(concave_t, batched=batched, method="linear")
+    concave_f = interpolate_table(concave_t, min_vec=min_vec, max_vec=max_vec, batched=batched, method="linear")
     return concave_f
