@@ -73,7 +73,7 @@ class TestPotential(unittest.TestCase):
                     joint_strat = tuple(joint_strat)
                     new_potential = np.array([f(joint_strat) for f in potential_funcs])
                     new_u = (new_potential - comp_potential) / weights[:, player] + comp_u
-                    np.testing.assert_allclose(payoff_matrices[(slice(None), player) + joint_strat], new_u)
+                    np.testing.assert_allclose(payoff_matrices[(slice(None), player) + joint_strat], new_u, atol=1e-15)
 
     def custom_potential_wikipedia(self, b1=2, b2=-1, w=3):
         """Create a potential function for the Wikipedia example.
@@ -119,7 +119,7 @@ class TestPotential(unittest.TestCase):
         num_players = 3
         num_actions = 5
         rng = np.random.default_rng(self.seed)
-        potential_funcs = decreasing(num_players, self.batch_size, num_points=num_actions, seed=self.seed)
+        potential_funcs = decreasing(num_players, batch_size=self.batch_size, num_points=num_actions, seed=self.seed)
         weights = rng.uniform(low=0, high=1, size=(self.batch_size, num_players))
         payoff_matrices = potential(
             num_players,

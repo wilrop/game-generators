@@ -130,7 +130,18 @@ def decreasing_table(
 
 
 def increasing(
-    dim, max_grad=5, method="cumsum", batch_size=1, batched=True, min_y=0, max_y=10, num_points=10, rng=None, seed=None
+    dim,
+    max_grad=5,
+    method="cumsum",
+    min_vec=None,
+    max_vec=None,
+    min_y=0,
+    max_y=10,
+    batch_size=1,
+    batched=True,
+    num_points=10,
+    rng=None,
+    seed=None,
 ):
     """Create an increasing function.
 
@@ -139,10 +150,12 @@ def increasing(
         max_grad (int, optional): The maximum gradient used in sampling. This is not guaranteed to be the maximum
             gradient in the final table. Defaults to 5.
         method (str, optional): The method to use. Should be either 'cumsum' or 'max_add', Defaults to 'cumsum'.
-        batch_size (int, optional): The batch size. Defaults to 1.
-        batched (bool, optional): Whether the function is batched or not. Defaults to True.
+        min_vec (np.array, optional): The minimum input values. Defaults to None.
+        max_vec (np.array, optional): The maximum input values. Defaults to None.
         min_y (int, optional): The minimum value. Defaults to 0.
         max_y (int, optional): The maximum value. Defaults to 10.
+        batch_size (int, optional): The batch size. Defaults to 1.
+        batched (bool, optional): Whether the function is batched or not. Defaults to True.
         num_points (int, optional): The number of points. Defaults to 10.
         rng (np.random.Generator, optional): The random number generator. Defaults to None.
         seed (int, optional): The random seed. Defaults to None.
@@ -164,12 +177,23 @@ def increasing(
     batched = batch_size > 1 or batched
     if not batched:
         values = values[0]
-    increasing_f = interpolate_table(values, batched=batched, method="linear")
+    increasing_f = interpolate_table(values, min_vec=min_vec, max_vec=max_vec, batched=batched, method="linear")
     return increasing_f
 
 
 def decreasing(
-    dim, max_grad=5, method="cumsum", batch_size=1, batched=True, min_y=0, max_y=10, num_points=10, rng=None, seed=None
+    dim,
+    max_grad=5,
+    method="cumsum",
+    min_vec=None,
+    max_vec=None,
+    min_y=0,
+    max_y=10,
+    batch_size=1,
+    batched=True,
+    num_points=10,
+    rng=None,
+    seed=None,
 ):
     """Create a decreasing function.
 
@@ -178,10 +202,12 @@ def decreasing(
         max_grad (int, optional): The maximum gradient used in sampling. This is not guaranteed to be the maximum
             gradient in the final table. Defaults to 5.
         method (str, optional): The method to use. Should be either 'cumsum' or 'max_add', Defaults to 'cumsum'.
-        batch_size (int, optional): The batch size. Defaults to 1.
-        batched (bool, optional): Whether the function is batched or not. Defaults to True.
+        min_vec (np.array, optional): The minimum input values. Defaults to None.
+        max_vec (np.array, optional): The maximum input values. Defaults to None.
         min_y (int, optional): The minimum value. Defaults to 0.
         max_y (int, optional): The maximum value. Defaults to 10.
+        batch_size (int, optional): The batch size. Defaults to 1.
+        batched (bool, optional): Whether the function is batched or not. Defaults to True.
         num_points (int, optional): The number of points. Defaults to 10.
         rng (np.random.Generator, optional): The random number generator. Defaults to None.
         seed (int, optional): The random seed. Defaults to None.
@@ -203,5 +229,5 @@ def decreasing(
     batched = batch_size > 1 or batched
     if not batched:
         values = values[0]
-    decreasing_f = interpolate_table(values, batched=batched, method="linear")
+    decreasing_f = interpolate_table(values, min_vec=min_vec, max_vec=max_vec, batched=batched, method="linear")
     return decreasing_f
