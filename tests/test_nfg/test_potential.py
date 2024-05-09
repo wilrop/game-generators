@@ -137,7 +137,9 @@ class TestPotential(unittest.TestCase):
     def test_congestion_as_potential(self):
         num_players = 2
         num_facilities = 2
-        payoff_funcs = decreasing(1, self.batch_size * num_facilities, num_points=num_players + 1, seed=self.seed)
+        payoff_funcs = decreasing(
+            1, batch_size=self.batch_size * num_facilities, num_points=num_players + 1, seed=self.seed
+        )
         payoff_funcs = [payoff_funcs[i :: self.batch_size] for i in range(self.batch_size)]
         payoff_matrices = congestion(num_players, num_facilities, payoff_funcs, batch_size=self.batch_size)
         weights = np.ones((self.batch_size, num_players))
