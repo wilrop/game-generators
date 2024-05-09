@@ -8,8 +8,8 @@ from game_generators.functions.interpolate import interpolate_table
 class TestInterpolateTable(unittest.TestCase):
     dim = 2
     batch_size = 5
-    min_vec = np.array([1, 2])
-    max_vec = np.array([5, 10])
+    min_vec = np.array([100, 120])
+    max_vec = np.array([200, 220])
     min_y = 0
     max_y = 10
     num_points = 20
