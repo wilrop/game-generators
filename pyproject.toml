@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "game-generators"
-version = "0.1.2"
+version = "0.1.3"
 description = "Efficiently generate games for research and experimentation"
 authors = ["Willem Röpke <willem.ropke@vub.be>"]
 license = "MIT"
