@@ -140,6 +140,8 @@ def increasing(
     batch_size=1,
     batched=True,
     num_points=10,
+    bounds_error=True,
+    fill_value=None,
     rng=None,
     seed=None,
 ):
@@ -157,6 +159,8 @@ def increasing(
         batch_size (int, optional): The batch size. Defaults to 1.
         batched (bool, optional): Whether the function is batched or not. Defaults to True.
         num_points (int, optional): The number of points. Defaults to 10.
+        bounds_error (bool, optional): Whether to raise an error if the input is out of bounds. Defaults to True.
+        fill_value (float, optional): The fill value used for out of bounds values. Defaults to None.
         rng (np.random.Generator, optional): The random number generator. Defaults to None.
         seed (int, optional): The random seed. Defaults to None.
 
@@ -177,7 +181,15 @@ def increasing(
     batched = batch_size > 1 or batched
     if not batched:
         values = values[0]
-    increasing_f = interpolate_table(values, min_vec=min_vec, max_vec=max_vec, batched=batched, method="linear")
+    increasing_f = interpolate_table(
+        values,
+        min_vec=min_vec,
+        max_vec=max_vec,
+        batched=batched,
+        method="linear",
+        bounds_error=bounds_error,
+        fill_value=fill_value,
+    )
     return increasing_f
 
 
@@ -192,6 +204,8 @@ def decreasing(
     batch_size=1,
     batched=True,
     num_points=10,
+    bounds_error=True,
+    fill_value=None,
     rng=None,
     seed=None,
 ):
@@ -209,6 +223,8 @@ def decreasing(
         batch_size (int, optional): The batch size. Defaults to 1.
         batched (bool, optional): Whether the function is batched or not. Defaults to True.
         num_points (int, optional): The number of points. Defaults to 10.
+        bounds_error (bool, optional): Whether to raise an error if the input is out of bounds. Defaults to True.
+        fill_value (float, optional): The fill value used for out of bounds values. Defaults to None.
         rng (np.random.Generator, optional): The random number generator. Defaults to None.
         seed (int, optional): The random seed. Defaults to None.
 
@@ -229,5 +245,13 @@ def decreasing(
     batched = batch_size > 1 or batched
     if not batched:
         values = values[0]
-    decreasing_f = interpolate_table(values, min_vec=min_vec, max_vec=max_vec, batched=batched, method="linear")
+    decreasing_f = interpolate_table(
+        values,
+        min_vec=min_vec,
+        max_vec=max_vec,
+        batched=batched,
+        method="linear",
+        bounds_error=bounds_error,
+        fill_value=fill_value,
+    )
     return decreasing_f
