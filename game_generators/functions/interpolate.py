@@ -46,6 +46,7 @@ def interpolate_table(
                 table,
                 method=method,
                 bounds_error=bounds_error,
+                fill_value=fill_value,
             )
             for table in table_function
         ]
